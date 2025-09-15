@@ -14,12 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author OENTSENG M
  */
 public class MessageTest {
+    Message message = new Message();
     
     public MessageTest() {
+        
     }
 
     @Test
-    public void testSomeMethod() {
+    public void testGetMessage() {
+        String expected = "I have arrived";
+        String actual = message.getMessage();
+        
+        assertEquals(expected,actual);
     }
     
 }

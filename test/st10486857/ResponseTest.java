@@ -29,6 +29,11 @@ public class ResponseTest {
 
     @Test
     public void testCalculateNumResponses() {
+        
+        int expected = 50;
+        int actual = response.calculateNumResponses(10,40);
+        
+        assertEquals(expected,actual);
     }
     
     

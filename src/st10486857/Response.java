@@ -10,4 +10,18 @@ package st10486857;
  */
 public class Response {
     
+    String response = "I see you there";
+    
+    public String returnResponse(){
+        return response;
+        
+    }
+    public int calculateNumResponses(int initialResponseCount,int newResponses){
+        
+        int totalresponses = initialResponseCount + newResponses;
+        
+        return totalresponses;
+        
+    }
+    
 }
