@@ -8,10 +8,6 @@ package ChatApp;
  *
  * @author OENTSENG M
  */
-public class Message {
-     String returnMessage = " i have arrived";
-     public String getMessage()
-     { 
-         return returnMessage;
-     }
+public class CellPhoneNumber {
+    
 }
