@@ -1,20 +1,29 @@
 
 
-package st10486857;
+package ChatApp;
 
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class ST10486857 {
-    private String userName;
-    private String password;
+public class Chatapp {
+    public String userName;
+    public String password;
     private String cellNumber;
-    private String firstName;
-    private String lastName;
+    public String firstName;
+    public String lastName;
+    
+    // Default Constructor
+    public Chatapp(){
+        this.cellNumber = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.userName = "";
+        this.userName = "";
+    }
 
     // Main method to run the program
     public static void main(String[] args) {
-        ST10486857 authSystem = new ST10486857(); // Updated class name here
+        Chatapp authSystem = new Chatapp(); // Updated class name here
         Scanner inputScanner = new Scanner(System.in);
         
         System.out.println("=== User Registration ===");
