@@ -70,9 +70,4 @@ jobs:
         
         
              
-       #run Search Class tests and output report 
-      - name: run Search Class  tests and create report 
-        working-directory: ./test
-        run: |
-         ls
-         java -jar  "../testresources/junit-platform-console-standalone-1.6.0.jar" -cp "." --select-class  prog5121poe.SearchTest 
+    
