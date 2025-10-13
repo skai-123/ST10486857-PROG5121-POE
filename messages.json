@@ -1,0 +1,20 @@
+[
+{
+"messageID": "8464768244",
+"messageCount": 1,
+"recipient": "+27826789821",
+"message": "HELLO",
+"messageHash": "84:1:HELLOHELLO",
+"status": "sent",
+"timestamp": "2025-10-13 12:55:35"
+},
+  {
+    "messageID": "8464768244",
+    "messageCount": 1,
+    "recipient": "+27826789821",
+    "message": "HELLO",
+    "messageHash": "84:1:HELLOHELLO",
+    "status": "stored",
+    "timestamp": "2025-10-13 12:55:46"
+  }
+]
