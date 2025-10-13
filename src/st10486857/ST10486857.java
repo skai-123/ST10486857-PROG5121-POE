@@ -1,23 +1,53 @@
 
 
-package st10486857;
+package ChatApp;
 
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class ST10486857 {
-    private String userName;
-    private String password;
+public class Chatapp {
+    //USer details
+    public String userName;
+    public String password;
     private String cellNumber;
-    private String firstName;
-    private String lastName;
+    public String firstName;
+    public String lastName;
+    
+     public String message;
+     public String messageID;
+     private String cellNumber2;
+     public String sent;
+     public String hash;
+     public int messageNum;
+     
+    // Default login Constructor
+    public  Chatapp(){
+        this.cellNumber = "";
+        this.firstName = "";
+        this.lastName = "";
+        this.userName = "";
+        this.userName = "";
+        
+// Default message Constructor
+         this.message = "";
+        this.messageID = "";
+        this.cellNumber2 = "";
+        this.sent = "";
+        this.hash = "";
+        this.messageNum =0;
+    }
+    
+   
+    
+   
 
     // Main method to run the program
     public static void main(String[] args) {
-        ST10486857 authSystem = new ST10486857(); // Updated class name here
+        Chatapp authSystem = new Chatapp(); // Updated class name here
         Scanner inputScanner = new Scanner(System.in);
-        
-        System.out.println("=== User Registration ===");
+        boolean loginSuccess=  false; boolean valid = false;
+       System.out.println("=== User Registration ===");
         String registrationResult = authSystem.registerNewUser(inputScanner);
         System.out.println(registrationResult);
 
@@ -28,11 +58,80 @@ public class ST10486857 {
             System.out.print("Enter password: ");
             String enteredPassword = inputScanner.nextLine();
 
-            boolean loginSuccess = authSystem.authenticateUser(enteredUsername, enteredPassword);
-            System.out.println(authSystem.getLoginStatusMessage(loginSuccess));
+            loginSuccess = authSystem.authenticateUser(enteredUsername, enteredPassword);   
         }
-
-        inputScanner.close();
+        if(!loginSuccess){
+            System.out.print("Login Not Successful");
+            inputScanner.close();
+            System.exit(0);
+        }
+        else{ 
+            System.out.println(authSystem.getLoginStatusMessage(loginSuccess));
+            System.out.print("1. Make Message \n2.Come Soon  \n3.Quit\n");
+            int loop;
+            
+            loop = inputScanner.nextInt();
+            if(loop >=1 && loop <=2){
+                while(loop>=1 && loop<= 2){
+                    if(loop==1){ 
+                        String cellNumber2, message;
+                        
+                        System.out.print("Enter Recipient Number ");
+                        cellNumber2 = inputScanner.next(); 
+                        inputScanner.nextLine();
+                        System.out.print("Enter Message :");
+                        message = inputScanner.nextLine();
+                        
+                        
+                        System.out.print("Review Message :\n ");
+                        System.out.print("Message : "+ message);
+                        System.out.print("\nRecipient : "+ cellNumber2 );
+                       
+                        System.out.print("\nWhat to do with the message? \n ");
+                        String send = authSystem.sentMessage (inputScanner);
+                        if (send.compareToIgnoreCase("send")==0 || send.compareToIgnoreCase("save")==0){
+                        if(authSystem.checkRecipientCell (cellNumber2) == 1){
+                             if(message.length()>0 && message.length()<= 250)
+                             {valid = true; authSystem.messageNum = authSystem.messageNum + 1;} }
+                        }
+                        String messageID = authSystem.generateRandomId();
+                        while(!authSystem.checkMessageID(messageID)){
+                             messageID=authSystem.generateRandomId();
+                                }
+                        //Create Hash
+                        String hashCreate="";
+                        int add =0;
+                        while(add<=1){
+                            hashCreate = hashCreate + messageID.charAt(add);
+                            add+=1;
+                        }
+                        authSystem.hash = hashCreate + ":" + authSystem.messageNum + ":" + authSystem.getFirstWord(message).toUpperCase() + authSystem.getLastWord(message).toUpperCase();
+                        //Display message 
+                        if(valid){
+                            System.out.println(authSystem.printMessage(message, authSystem.hash, cellNumber2, send, messageID, authSystem.messageNum));
+                         System.out.print("Total Messages Save so far :" + authSystem.returnTotalMessage(authSystem.messageNum) +"\n");   
+                        }
+                        else if(send.compareToIgnoreCase("Delete")==0){
+                            //Message Deleted
+                             System.out.print("Message Deleted\n" );
+                        }
+                         else {
+                            //Invalid Cell Phone or Message
+                             System.out.print("Message, Send Action or Cell Number Invalid \n" );
+                        }
+                        
+                    }    
+                    else{
+                        System.out.print("Currently Not Available right now ");
+                    }
+                    System.out.print("1. Make Another Message \n 2.Come Soon \n 3. Quit \n");
+                    loop = inputScanner.nextInt();
+                }
+            }
+            else{
+                System.out.print("Not a Option/Closing ");
+            }
+        }
     }
 
     // Check if username meets requirements
@@ -104,4 +203,68 @@ public class ST10486857 {
         }
         return "Username or password incorrect, please try again.";
     }
+    
+    //Part 2 Methods
+    public boolean checkMessageID(String messageID){
+         if(messageID.length()<=10){
+             return true;
+         }
+         return false;
+      }
+       public String generateRandomId() {
+        Random random = new Random();
+
+        // Generate a number between 1000000000 and 9999999999 (inclusive)
+        long number = 1000000000L + (long)(random.nextDouble() * 9000000000L);
+
+        return String.valueOf(number);
+    } //Verify Recipient Phone is valid
+     public int checkRecipientCell (String cellNumber){
+         String pattern = "^\\+\\d{1,3}\\d{7,10}$";
+        if(Pattern.matches(pattern, cellNumber)){
+            return 1;
+        }
+        return 0;
+     } //Allow user to send/delete/save message
+      public String sentMessage (Scanner inputScanner){
+         System.out.print("Send, delete or Save Message? \n");
+         String userChoose = inputScanner.nextLine();
+         if(userChoose.compareToIgnoreCase("send")==0){
+             return "Send";
+         }
+         else if (userChoose.compareToIgnoreCase("Save")==0){
+             return "Save";
+         }
+         else{
+             return "Delete";
+     }
+     }
+      
+      //return total number of messages sent
+      public int returnTotalMessage(int number){
+    return number;}
+      //Print message
+      public String printMessage(String message, String hash, String cellNumberR, String send, String messageID, int number){
+      return "Final Message " + "\n" +
+              "ID: " + messageID + "\n" +
+             "Hash: " + hash + "\n" 
+              + "Recipient: " + cellNumberR + "\n" +
+              "Message Number: " + number + "\n"+
+              "Status: " + send + "\n" +
+              "Message: " + message + "\n";  
+                     
+     }
+      //First and LAst Words
+      public String getFirstWord(String message) {
+        if (message == null || message.isBlank()) return "";
+        String[] words = message.trim().split("\\s+");
+        return words[0];
+    }
+
+    public String getLastWord(String message) {
+        if (message == null || message.isBlank()) return "";
+        String[] words = message.trim().split("\\s+");
+        return words[words.length - 1];
+    }
 }
+
