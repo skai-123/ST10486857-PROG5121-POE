@@ -23,12 +23,12 @@ public class ST10486857 {
 
     // === GUI: Main Menu ===
     private void showMainMenu() {
-        JFrame frame = new JFrame("QuickChat Messaging System");
+        JFrame frame = new JFrame("QuickChat Messaging Apllication");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
         frame.setLayout(new BorderLayout());
 
-        JLabel welcomeLabel = new JLabel("Welcome to QuickChat!", SwingConstants.CENTER);
+        JLabel welcomeLabel = new JLabel("Welcome to QuickChat.", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
 
         JButton sendBtn = new JButton("Send Messages");
